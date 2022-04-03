@@ -1,0 +1,119 @@
+<div class="card"
+     *ngIf="invoice">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="saveinvoice(invoice)"
+          [formGroup]="invoiceForm">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"
+                 for="invoiceNameId">invoice Name</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.invoiceName }"
+                   class="form-control"
+                   id="invoiceNameId"
+                   type="text"
+                   placeholder="Name (required)"
+                   formControlName="invoiceName"
+                   (blur)="blur()" />
+            <span class="invalid-feedback"
+                  *ngIf="displayMessage.invoiceName">
+              {{displayMessage.invoiceName}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"
+                 for="invoiceCodeId">invoice Code</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.invoiceCode}"
+                   class="form-control"
+                   id="invoiceCodeId"
+                   type="text"
+                   placeholder="Code (required)"
+                   formControlName="invoiceCode"
+                   (blur)="blur()" />
+            <span class="invalid-feedback"
+                  *ngIf="displayMessage.invoiceCode">
+              {{displayMessage.invoiceCode}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"
+                 for="starRatingId">Star Rating (1-5)</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.starRating}"
+                   class="form-control"
+                   id="starRatingId"
+                   type="text"
+                   placeholder="Rating"
+                   formControlName="starRating" />
+            <span class="invalid-feedback"
+                  *ngIf="displayMessage.starRating">
+              {{displayMessage.starRating}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label"
+                 for="descriptionId">Description</label>
+
+          <div class="col-md-9">
+            <textarea [ngClass]="{'is-invalid': displayMessage.description}"
+                      class="form-control"
+                      id="descriptionId"
+                      placeholder="Description"
+                      rows=3
+                      formControlName="description">
+            </textarea>
+            <span class="invalid-feedback"
+                  *ngIf="displayMessage.description">
+              {{ displayMessage.description}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-2">
+            <span>
+              <button class="btn btn-primary"
+                      type="submit"
+                      style="width:80px;margin-right:10px"
+                      [disabled]="!invoiceForm.valid || !invoiceForm.dirty">
+                Save
+              </button>
+            </span>
+            <span>
+              <button class="btn btn-light"
+                      type="button"
+                      style="width:80px;margin-right:10px"
+                      (click)="cancelEdit(invoice)">
+                Cancel
+              </button>
+            </span>
+            <span>
+              <button class="btn btn-light"
+                      type="button"
+                      style="width:80px"
+                      (click)="deleteinvoice(invoice)">
+                Delete
+              </button>
+            </span>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="errorMessage"
+     class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>
