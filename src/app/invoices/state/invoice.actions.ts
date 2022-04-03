@@ -1,35 +1,35 @@
-import { Invoice } from '../invoice';
+import { Invoice } from '../Invoice';
 
 /* NgRx */
 import { createAction, props } from '@ngrx/store';
 
-export const toggleinvoiceCode = createAction(
-  '[invoice] Toggle invoice Code'
+export const toggleInvoiceCode = createAction(
+  '[Invoice] Toggle Invoice Code'
 );
 
-export const setCurrentinvoice = createAction(
-  '[invoice] Set Current invoice',
+export const setCurrentInvoice = createAction(
+  '[Invoice] Set Current Invoice',
   props<{ invoice: Invoice }>()
 );
 
-export const clearCurrentinvoice = createAction(
-  '[invoice] Clear Current invoice'
+export const clearCurrentInvoice = createAction(
+  '[Invoice] Clear Current Invoice'
 );
 
-export const initializeCurrentinvoice = createAction(
-  '[invoice] Initialize Current invoice'
+export const initializeCurrentInvoice = createAction(
+  '[Invoice] Initialize Current Invoice'
 );
 
-export const loadinvoices = createAction(
-  '[invoice] Load'
+export const loadInvoices = createAction(
+  '[Invoice] Load'
 );
 
-export const loadinvoicesSuccess = createAction(
-  '[invoice] Load Success',
+export const loadInvoicesSuccess = createAction(
+  '[Invoice] Load Success',
   props<{ invoices: Invoice[] }>()
 );
 
-export const loadinvoicesFailure = createAction(
-  '[invoice] Load Fail',
+export const loadInvoicesFailure = createAction(
+  '[Invoice] Load Fail',
   props<{ error: string }>()
 );

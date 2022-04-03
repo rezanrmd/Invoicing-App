@@ -5,11 +5,11 @@
   </div>
 
   <div class="card-body"
-       *ngIf="invoices?.length">
+       *ngIf="invoices$ | async as invoices">
     <div class="list-group">
       <button class="list-group-item list-group-item-action rounded-0"
               *ngFor="let invoice of invoices"
-              [ngClass]="{'active': invoice?.id === selectedinvoice?.id}"
+              [ngClass]="{'active': invoice?.id === selectedInvoice?.id}"
               (click)="invoiceSelected(invoice)">{{ invoice.invoiceName }}
         <ng-container *ngIf="displayCode">
           ({{ invoice.invoiceCode }})
@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-4 text-right">
         <button class="btn btn-primary"
-                (click)="newinvoice()">
+                (click)="newInvoice()">
           Add
         </button>
       </div>

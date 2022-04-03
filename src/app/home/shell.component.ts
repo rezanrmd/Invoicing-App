@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'pm-shell',
+  selector: 'im-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.css']
 })

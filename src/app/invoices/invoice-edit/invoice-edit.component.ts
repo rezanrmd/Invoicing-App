@@ -8,15 +8,15 @@ import { NumberValidators } from '../../shared/number.validator';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
-import { State, getCurrentinvoice } from '../state/invoice.reducer';
+import { State, getCurrentInvoice } from '../state/invoice.reducer';
 import * as invoiceActions from '../state/invoice.actions';
 
 @Component({
-  selector: 'pm-invoice-edit',
+  selector: 'im-invoice-edit',
   templateUrl: './invoice-edit.component.html'
 })
 export class InvoiceEditComponent implements OnInit {
-  pageTitle = 'invoice Edit';
+  pageTitle = 'Invoice Edit';
   errorMessage = '';
   invoiceForm: FormGroup;
 
@@ -61,8 +61,8 @@ export class InvoiceEditComponent implements OnInit {
 
     // Watch for changes to the currently selected invoice
     // TODO: Unsubscribe
-    this.store.select(getCurrentinvoice).subscribe(
-      currentinvoice => this.displayinvoice(currentinvoice)
+    this.store.select(getCurrentInvoice).subscribe(
+      currentInvoice => this.displayInvoice(currentInvoice)
     );
 
     // Watch for value changes for validation
@@ -77,7 +77,7 @@ export class InvoiceEditComponent implements OnInit {
     this.displayMessage = this.genericValidator.processMessages(this.invoiceForm);
   }
 
-  displayinvoice(invoice: Invoice | null): void {
+  displayInvoice(invoice: Invoice | null): void {
     // Set the local invoice property
     this.invoice = invoice;
 
@@ -87,9 +87,9 @@ export class InvoiceEditComponent implements OnInit {
 
       // Display the appropriate page title
       if (invoice.id === 0) {
-        this.pageTitle = 'Add invoice';
+        this.pageTitle = 'Add Invoice';
       } else {
-        this.pageTitle = `Edit invoice: ${invoice.invoiceName}`;
+        this.pageTitle = `Edit Invoice: ${invoice.invoiceName}`;
       }
 
       // Update the data on the form
@@ -105,39 +105,39 @@ export class InvoiceEditComponent implements OnInit {
   cancelEdit(invoice: Invoice): void {
     // Redisplay the currently selected invoice
     // replacing any edits made
-    this.displayinvoice(invoice);
+    this.displayInvoice(invoice);
   }
 
-  deleteinvoice(invoice: Invoice): void {
+  deleteInvoice(invoice: Invoice): void {
     if (invoice && invoice.id) {
       if (confirm(`Really delete the invoice: ${invoice.invoiceName}?`)) {
-        this.invoiceService.deleteinvoice(invoice.id).subscribe({
-          next: () => this.store.dispatch(invoiceActions.clearCurrentinvoice()),
+        this.invoiceService.deleteInvoice(invoice.id).subscribe({
+          next: () => this.store.dispatch(invoiceActions.clearCurrentInvoice()),
           error: err => this.errorMessage = err
         });
       }
     } else {
       // No need to delete, it was never saved
-      this.store.dispatch(invoiceActions.clearCurrentinvoice());
+      this.store.dispatch(invoiceActions.clearCurrentInvoice());
     }
   }
 
-  saveinvoice(originalinvoice: Invoice): void {
+  saveInvoice(originalInvoice: Invoice): void {
     if (this.invoiceForm.valid) {
       if (this.invoiceForm.dirty) {
         // Copy over all of the original invoice properties
         // Then copy over the values from the form
         // This ensures values not on the form, such as the Id, are retained
-        const invoice = { ...originalinvoice, ...this.invoiceForm.value };
+        const invoice = { ...originalInvoice, ...this.invoiceForm.value };
 
         if (invoice.id === 0) {
-          this.invoiceService.createinvoice(invoice).subscribe({
-            next: p => this.store.dispatch(invoiceActions.setCurrentinvoice({ invoice: p })),
+          this.invoiceService.createInvoice(invoice).subscribe({
+            next: p => this.store.dispatch(invoiceActions.setCurrentInvoice({ invoice: p })),
             error: err => this.errorMessage = err
           });
         } else {
-          this.invoiceService.updateinvoice(invoice).subscribe({
-            next: p => this.store.dispatch(invoiceActions.setCurrentinvoice({ invoice: p })),
+          this.invoiceService.updateInvoice(invoice).subscribe({
+            next: p => this.store.dispatch(invoiceActions.setCurrentInvoice({ invoice: p })),
             error: err => this.errorMessage = err
           });
         }

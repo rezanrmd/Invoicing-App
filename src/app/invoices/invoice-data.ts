@@ -1,8 +1,8 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-import { Invoice } from './invoice';
+import { Invoice } from './Invoice';
 
-export class invoiceData implements InMemoryDbService {
+export class InvoiceData implements InMemoryDbService {
 
     createDb() {
         const invoices: Invoice[] = [

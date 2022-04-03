@@ -10,6 +10,8 @@ import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
 import { invoiceReducer } from './state/invoice.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { InvoiceEffects } from './state/invoice.effects';
 
 const invoiceRoutes: Routes = [
   { path: '', component: InvoiceShellComponent }
@@ -19,7 +21,8 @@ const invoiceRoutes: Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(invoiceRoutes),
-    StoreModule.forFeature('invoices', invoiceReducer)
+    StoreModule.forFeature('invoices', invoiceReducer),
+    EffectsModule.forFeature([InvoiceEffects])
   ],
   declarations: [
     InvoiceShellComponent,

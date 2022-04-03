@@ -11,67 +11,45 @@ import { Invoice } from './invoice';
 })
 export class InvoiceService {
   private invoicesUrl = 'api/invoices';
-  private invoices: Invoice[];
 
   constructor(private http: HttpClient) { }
 
-  getinvoices(): Observable<Invoice[]> {
-    if (this.invoices) {
-      return of(this.invoices);
-    }
+  getInvoices(): Observable<Invoice[]> {
+
     return this.http.get<Invoice[]>(this.invoicesUrl)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
-        tap(data => this.invoices = data),
         catchError(this.handleError)
       );
   }
 
-  createinvoice(invoice: Invoice): Observable<Invoice> {
+  createInvoice(invoice: Invoice): Observable<Invoice> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     // invoice Id must be null for the Web API to assign an Id
-    const newinvoice = { ...invoice, id: null };
-    return this.http.post<Invoice>(this.invoicesUrl, newinvoice, { headers })
+    const newInvoice = { ...invoice, id: null };
+    return this.http.post<Invoice>(this.invoicesUrl, newInvoice, { headers })
       .pipe(
-        tap(data => console.log('createinvoice: ' + JSON.stringify(data))),
-        tap(data => {
-          this.invoices.push(data);
-        }),
+        tap(data => console.log('createInvoice: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
 
-  deleteinvoice(id: number): Observable<{}> {
+  deleteInvoice(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.invoicesUrl}/${id}`;
     return this.http.delete<Invoice>(url, { headers })
       .pipe(
-        tap(data => console.log('deleteinvoice: ' + id)),
-        tap(data => {
-          const foundIndex = this.invoices.findIndex(item => item.id === id);
-          if (foundIndex > -1) {
-            this.invoices.splice(foundIndex, 1);
-          }
-        }),
+        tap(data => console.log('deleteInvoice: ' + id)),
         catchError(this.handleError)
       );
   }
 
-  updateinvoice(invoice: Invoice): Observable<Invoice> {
+  updateInvoice(invoice: Invoice): Observable<Invoice> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.invoicesUrl}/${invoice.id}`;
     return this.http.put<Invoice>(url, invoice, { headers })
       .pipe(
-        tap(() => console.log('updateinvoice: ' + invoice.id)),
-        // Update the item in the list
-        // This is required because the selected invoice that was edited
-        // was a copy of the item from the array.
-        tap(() => {
-          const foundIndex = this.invoices.findIndex(item => item.id === invoice.id);
-          if (foundIndex > -1) {
-            this.invoices[foundIndex] = invoice;
-          }
-        }),
+        tap(() => console.log('updateInvoice: ' + invoice.id)),
         // Return the invoice on an update
         map(() => invoice),
         catchError(this.handleError)

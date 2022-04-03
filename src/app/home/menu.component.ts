@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../user/auth.service';
 
 @Component({
-  selector: 'pm-menu',
+  selector: 'im-menu',
   templateUrl: './menu.component.html'
 })
 export class MenuComponent {

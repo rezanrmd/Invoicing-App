@@ -5,7 +5,7 @@
   </div>
   <div class="card-body">
     <form novalidate
-          (ngSubmit)="saveinvoice(invoice)"
+          (ngSubmit)="saveInvoice(invoice)"
           [formGroup]="invoiceForm">
         <div class="form-group row">
           <label class="col-md-3 col-form-label"
@@ -28,7 +28,7 @@
 
         <div class="form-group row">
           <label class="col-md-3 col-form-label"
-                 for="invoiceCodeId">invoice Code</label>
+                 for="invoiceCodeId">Invoice Code</label>
 
           <div class="col-md-9">
             <input [ngClass]="{'is-invalid': displayMessage.invoiceCode}"
@@ -104,7 +104,7 @@
               <button class="btn btn-light"
                       type="button"
                       style="width:80px"
-                      (click)="deleteinvoice(invoice)">
+                      (click)="deleteInvoice(invoice)">
                 Delete
               </button>
             </span>

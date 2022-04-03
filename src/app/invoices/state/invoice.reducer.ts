@@ -1,8 +1,8 @@
-import { Invoice } from '../invoice';
+import { Invoice } from '../Invoice';
 
 /* NgRx */
 import { createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as invoiceActions from './invoice.actions';
+import * as InvoiceActions from './invoice.actions';
 import * as AppState from '../../state/app.state';
 
 // Extends the app state to include the invoice feature.
@@ -14,59 +14,59 @@ export interface State extends AppState.State {
 
 // State for this feature (invoice)
 export interface InvoiceState {
-  showinvoiceCode: boolean;
-  currentinvoice: Invoice;
+  showInvoiceCode: boolean;
+  currentInvoice: Invoice;
   invoices: Invoice[];
 }
 
 const initialState: InvoiceState = {
-  showinvoiceCode: true,
-  currentinvoice: null,
+  showInvoiceCode: true,
+  currentInvoice: null,
   invoices: []
 };
 
 // Selector functions
-const getinvoiceFeatureState = createFeatureSelector<InvoiceState>('invoices');
+const getInvoiceFeatureState = createFeatureSelector<InvoiceState>('invoices');
 
-export const getShowinvoiceCode = createSelector(
-  getinvoiceFeatureState,
-  state => state.showinvoiceCode
+export const getShowInvoiceCode = createSelector(
+  getInvoiceFeatureState,
+  state => state.showInvoiceCode
 );
 
-export const getCurrentinvoice = createSelector(
-  getinvoiceFeatureState,
-  state => state.currentinvoice
+export const getCurrentInvoice = createSelector(
+  getInvoiceFeatureState,
+  state => state.currentInvoice
 );
 
-export const getinvoices = createSelector(
-  getinvoiceFeatureState,
+export const getInvoices = createSelector(
+  getInvoiceFeatureState,
   state => state.invoices
 );
 
 export const invoiceReducer = createReducer<InvoiceState>(
   initialState,
-  on(invoiceActions.toggleinvoiceCode, (state): InvoiceState => {
+  on(InvoiceActions.toggleInvoiceCode, (state): InvoiceState => {
     return {
       ...state,
-      showinvoiceCode: !state.showinvoiceCode
+      showInvoiceCode: !state.showInvoiceCode
     };
   }),
-  on(invoiceActions.setCurrentinvoice, (state, action): InvoiceState => {
+  on(InvoiceActions.setCurrentInvoice, (state, action): InvoiceState => {
     return {
       ...state,
-      currentinvoice: action.invoice
+      currentInvoice: action.invoice
     };
   }),
-  on(invoiceActions.clearCurrentinvoice, (state): InvoiceState => {
+  on(InvoiceActions.clearCurrentInvoice, (state): InvoiceState => {
     return {
       ...state,
-      currentinvoice: null
+      currentInvoice: null
     };
   }),
-  on(invoiceActions.initializeCurrentinvoice, (state): InvoiceState => {
+  on(InvoiceActions.initializeCurrentInvoice, (state): InvoiceState => {
     return {
       ...state,
-      currentinvoice: {
+      currentInvoice: {
         id: 0,
         invoiceName: '',
         invoiceCode: 'New',
@@ -74,5 +74,11 @@ export const invoiceReducer = createReducer<InvoiceState>(
         starRating: 0
       }
     };
+  }),
+  on(InvoiceActions.loadInvoicesSuccess, (state, action): InvoiceState => {
+    return {
+      ...state,
+      invoices: action.invoices
+    }
   })
 );

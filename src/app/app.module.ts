@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Imports for loading & configuring the in-memory web api
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { invoiceData } from './invoices/invoice-data';
+import { InvoiceData } from './invoices/invoice-data';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -21,15 +21,17 @@ import { UserModule } from './user/user.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(invoiceData),
+    HttpClientInMemoryWebApiModule.forRoot(InvoiceData),
     UserModule,
     AppRoutingModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       name: 'PoC Invoicing DevTools',
       maxAge: 25,
