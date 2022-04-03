@@ -1,4 +1,4 @@
-# APM-Demo2
+# Reza's NGRX Invoicing Applicatio
 
 Demo of a basic implementation of NgRx for a simple boolean flag, but using strong typing. Includes implementation of the dev tools.
 
